@@ -20,11 +20,10 @@ Identify the entities, attributes, and relationships of the database.
 Nota: assumindo que o sistema é só para uma empresa e *word* significa o atributo chave e ~word~ significa o atributo derivado.
 
 Entidades e Atributos:
- - Empresa()
  - Encomenda(*num*, data)
- - Produto(*código*, nome, preço, iva, ~num_unidades_armazem~)
+ - Produto(*codigo*, nome, preço, iva, ~num_unidades_armazem~)
  - Fornecedor(nome, *nif*, addr, fax, cond_pagamento)
- - TipoFornecedor(*código*, nome)
+ - TipoFornecedor(*codigo*, nome)
 Relação:
     Encomenda - Produto (com atribuo num_unidades)
     Encomenda - Fornecedor
