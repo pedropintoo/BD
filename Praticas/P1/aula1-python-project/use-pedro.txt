@@ -1,0 +1,1 @@
+python3 -m poetry run flask run --debug
