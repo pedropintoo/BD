@@ -25,9 +25,9 @@ Entidades e Atributos:
  - Fornecedor(nome, *nif*, addr, fax, cond_pagamento)
  - TipoFornecedor(*codigo*, nome)
 Relação:
-    Encomenda - Produto (com atribuo num_unidades)
+    Encomenda - Produto (com atributo num_unidades)
     Encomenda - Fornecedor
-    Fornecerdor - TipoFornecedor
+    Fornecedor - TipoFornecedor
 
 ```
 
@@ -41,7 +41,7 @@ Grau da relação:
 Cardinalidade:
     Encomenda - Produto : NM (num_unidades)
     Encomenda - Fornecedor : 1..* 
-    Fornecerdor - TipoFornecedor
+    Fornecedor - TipoFornecedor
 
 Obrigatoriedade:
     Encomenda contem Produto
