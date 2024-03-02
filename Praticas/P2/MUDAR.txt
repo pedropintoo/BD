@@ -1,0 +1,2 @@
+IS-A (disjunt e obrigatoriedade)
+(PK)

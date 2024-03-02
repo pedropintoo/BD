@@ -17,13 +17,13 @@ Considere um Sistema de Gestão de Stocks de uma empresa. O presente exercício 
 Identify the entities, attributes, and relationships of the database.
 
 ```
-Nota: assumindo que o sistema é só para uma empresa e *word* significa o atributo chave e ~word~ significa o atributo derivado.
+Nota: assumindo que o sistema é só para uma empresa e ~word~ significa um atributo derivado. (PK - Primary Key)
 
 Entidades e Atributos:
- - Encomenda(*num*, data)
- - Produto(*codigo*, nome, preço, iva, ~num_unidades_armazem~)
- - Fornecedor(nome, *nif*, addr, fax, cond_pagamento)
- - TipoFornecedor(*codigo*, nome)
+ - Encomenda(num(PK), data)
+ - Produto(codigo(PK), nome, preço, iva, ~num_unidades_armazem~)
+ - Fornecedor(nome, nif(PK), addr, fax, cond_pagamento)
+ - TipoFornecedor(codigo(PK), nome)
 Relação:
     Encomenda - Produto (com atributo num_unidades)
     Encomenda - Fornecedor
@@ -40,7 +40,7 @@ Grau da relação:
 
 Cardinalidade:
     Encomenda - Produto : NM (num_unidades)
-    Encomenda - Fornecedor : 1..* 
+    Encomenda - Fornecedor : N 
     Fornecedor - TipoFornecedor
 
 Obrigatoriedade:
