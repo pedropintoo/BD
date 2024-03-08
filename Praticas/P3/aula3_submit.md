@@ -62,7 +62,17 @@ Chaves estrangueiras:
 ### *a)*
 
 ```
-... Write here your answer ...
+Airport (Airport_code (PK), City, State, Name)
+Airplane_type (Type_name (PK), Company, Max_seats)
+Airplane (Airplane_id (PK), Total_no_of_seats, Type_name (PK) )
+Flight (Number (PK), Airline, Weekdays)
+Flight_leg (Flight_Number (FK), Leg_no (PK), Airport_code, Scheduled_dep_time, Scheduled_arr_time)
+Fare (Flight_Number (FK), Code (PK), Amount, Restrictions)
+Leg_instance (Flight_Number (FK), Leg_no (FK), Date (PK), No_of_avail_seats, Airplane_id, Dep_time, Arr_time, Airport_code)
+Seat (Flight_Number (FK), Leg_no (FK), Date (FK), Seat_no (PK), Customer_name, Cphone)
+Can_land (Type_name (FK), Airport_code (FK))
+
+
 ```
 
 
