@@ -22,32 +22,32 @@ Pesado (peso, passgeiros, codigo (FK))
 
 ```
 Chaves candidadatas:
-    Aluguer ->
-    Cliente ->
-    Balcao ->
-    Veiculo ->
-    Tipo_Veiculo ->
-    Similaridade_Tipo_Veiculo ->
-    Ligeiro ->
-    Pesado ->
+    Aluguer -> {número}
+    Cliente -> {NIF}, {num_carta}
+    Balcao -> {número}
+    Veiculo -> {matrícula}
+    Tipo_Veiculo -> {codigo}
+    Similaridade_Tipo_Veiculo -> {cod_veiculo_1, cod_veiculo_2}
+    Ligeiro -> {codigo}
+    Pesado -> {codigo}
 Chaves primarias:
-    Aluguer ->
-    Cliente ->
-    Balcao ->
-    Veiculo ->
-    Tipo_Veiculo ->
-    Similaridade_Tipo_Veiculo ->
-    Ligeiro ->
-    Pesado ->
+    Aluguer -> {número}
+    Cliente -> {NIF}
+    Balcao -> {número}
+    Veiculo -> {matrícula}
+    Tipo_Veiculo -> {codigo}
+    Similaridade_Tipo_Veiculo -> {cod_veiculo_1, cod_veiculo_2}
+    Ligeiro -> {codigo}
+    Pesado -> {codigo}
 Chaves estrangueiras:
-    Aluguer ->
+    Aluguer -> {Vei_matricula}, {Bal_numero}, {Cli_NIF}
     Cliente ->
-    Balcao ->
-    Veiculo ->
-    Tipo_Veiculo ->
-    Similaridade_Tipo_Veiculo ->
-    Ligeiro ->
-    Pesado ->
+    Balcao -> 
+    Veiculo -> {Tipo_codigo}
+    Tipo_Veiculo -> 
+    Similaridade_Tipo_Veiculo -> {cod_veiculo_1}, {cod_veiculo_2}
+    Ligeiro -> {codigo}
+    Pesado -> {codigo}
 
 ```
 
