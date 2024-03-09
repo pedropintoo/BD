@@ -81,23 +81,37 @@ Can_land (Type_name (FK), Airport_code (FK))
 
 ```
 Chaves candidadatas:
-    - Airport:
-    - Airplane_type:
-    - Airplane:
-    - Flight:
-    - Flight_leg:
-    - Fare:
-    - Leg_instance:
-    - Seat:
-    - Can_land:
-
-
-
-
+    Airport -> {Airport_code}
+    Airplane_type -> {Type_name}
+    Airplane -> {Airplane_id}
+    Flight -> {Number}
+    Flight_leg -> {Leg_no} 
+    Fare -> {Code} 
+    Leg_instance -> {Date}
+    Seat -> {Seat_no}
+    Can_land -> {Type_name, Airport_code}
 
 Chaves primárias:
-Chaves estrangeiras:
+    Airport -> {Airport_code}
+    Airplane_type -> {Type_name}
+    Airplane -> {Airplane_id, Type_name}
+    Flight -> {Number}
+    Flight_leg -> {Flight_Number, Leg_no} 
+    Fare -> {Flight_Number, Code} 
+    Leg_instance -> {Flight_Number, Leg_no, Date}
+    Seat -> {Flight_Number, Leg_no, Date, Seat_no}
+    Can_land -> {Type_name, Airport_code}
 
+Chaves estrangeiras:
+    Airport -> 
+    Airplane_type -> 
+    Airplane -> {Type_name}
+    Flight -> 
+    Flight_leg -> {Airport_code, Flight_Number} 
+    Fare -> {Flight_Number} 
+    Leg_instance -> {Flight_Number, Leg_no, Airport_code}
+    Seat -> {Flight_Number, Leg_no, Date}
+    Can_land -> {Type_name, Airport_code}
 ```
 
 
