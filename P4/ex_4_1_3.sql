@@ -8,7 +8,8 @@ CREATE TABLE Produto(
     nome                VARCHAR NOT NULL,
     preco               VARCHAR NOT NULL,
     iva                 VARCHAR NOT NULL,
-    PRIMARY KEY (codigo)
+    PRIMARY KEY (codigo),
+    UNIQUE (codigo)
 );  
 
 
@@ -20,7 +21,8 @@ CREATE TABLE Fornecedor(
     cond_pagamento      VARCHAR NOT NULL,
     codigo              INT NOT NULL,
     PRIMARY KEY (nif),
-    FOREIGN KEY (codigo) REFERENCES Produto(codigo)
+    FOREIGN KEY (codigo) REFERENCES Produto(codigo),
+    UNIQUE (nif)
 );    
 
 
@@ -29,13 +31,15 @@ CREATE TABLE Encomenda(
     [data]             VARCHAR NOT NULL,
     nif                VARCHAR NOT NULL,
     PRIMARY KEY (num),
-    FOREIGN KEY (nif) REFERENCES Fornecedor(nif)
+    FOREIGN KEY (nif) REFERENCES Fornecedor(nif),
+    UNIQUE (num)
 );    
 
 CREATE TABLE TipoFornecedor(
     codigo              INT NOT NULL,
     nome                VARCHAR NOT NULL,
-    PRIMARY KEY (codigo)
+    PRIMARY KEY (codigo),
+    UNIQUE (codigo)
 );
 
 CREATE TABLE Contem(
@@ -44,5 +48,6 @@ CREATE TABLE Contem(
     num_unidades              INT NOT NULL,
     PRIMARY KEY (num_encomenda,codigo),
     FOREIGN KEY (num_encomenda) REFERENCES Encomenda(num),
-    FOREIGN KEY (codigo) REFERENCES Produto(codigo)
+    FOREIGN KEY (codigo) REFERENCES Produto(codigo),
+    UNIQUE (num_encomenda,codigo)
 );

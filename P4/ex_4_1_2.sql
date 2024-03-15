@@ -8,14 +8,16 @@ CREATE TABLE Airport(
     City                VARCHAR NOT NULL,
     [state]             VARCHAR NOT NULL,
     [name]              VARCHAR NOT NULL,
-    PRIMARY KEY (Airport_code)
+    PRIMARY KEY (Airport_code),
+    UNIQUE (Airport_code)
 );
 
 CREATE TABLE Airplane_type(
     [Type_name]           VARCHAR NOT NULL ,
     Company               VARCHAR NOT NULL,
     Max_seats             INT NOT NULL
-    PRIMARY KEY ([Type_name])
+    PRIMARY KEY ([Type_name]),
+    UNIQUE ([Type_name])
 );
 
 CREATE TABLE Airplane(
@@ -23,14 +25,16 @@ CREATE TABLE Airplane(
     Total_no_of_seats   INT NOT NULL,
     [Type_name]         VARCHAR NOT NULL,
     PRIMARY KEY (Airplane_id),
-    FOREIGN KEY ([Type_name]) REFERENCES Airplane_type([Type_name])
+    FOREIGN KEY ([Type_name]) REFERENCES Airplane_type([Type_name]),
+    UNIQUE (Airplane_id)
 );
 
 CREATE TABLE Flight(
     [Number]              INT NOT NULL,
     Airline               VARCHAR NOT NULL,
     Weekdays              VARCHAR NOT NULL,
-    PRIMARY KEY ([Number]) 
+    PRIMARY KEY ([Number]),
+    UNIQUE ([Number])
 );
 
 CREATE TABLE Flight_leg (
@@ -41,7 +45,8 @@ CREATE TABLE Flight_leg (
     Scheduled_arr_time    VARCHAR NOT NULL,
     PRIMARY KEY (Flight_number,Leg_no),
     FOREIGN KEY (Flight_number) REFERENCES Flight([Number]),
-    FOREIGN KEY (Airport_code) REFERENCES Airport(Airport_code)
+    FOREIGN KEY (Airport_code) REFERENCES Airport(Airport_code),
+    UNIQUE (Flight_number,Leg_no)
 );
 
 CREATE TABLE Fare (
@@ -50,7 +55,8 @@ CREATE TABLE Fare (
     Amount                INT NOT NULL,
     Restrictions          VARCHAR NOT NULL,   
     PRIMARY KEY (Flight_number, Code),
-    FOREIGN KEY (Flight_number) REFERENCES Flight([Number])
+    FOREIGN KEY (Flight_number) REFERENCES Flight([Number]),
+    UNIQUE (Flight_number, Code)
 );
 
 CREATE TABLE Leg_instance (
@@ -66,7 +72,8 @@ CREATE TABLE Leg_instance (
     FOREIGN KEY (Flight_number) REFERENCES Flight([Number]),
     FOREIGN KEY (Flight_number,Leg_no) REFERENCES Flight_leg(Flight_number,Leg_no),
     FOREIGN KEY (Airplane_id) REFERENCES Airplane(Airplane_id),
-    FOREIGN KEY (Airport_code) REFERENCES Airport(Airport_code)
+    FOREIGN KEY (Airport_code) REFERENCES Airport(Airport_code),
+    UNIQUE (Flight_number,Leg_no,[Date])
 );
 
 CREATE TABLE Seat (
@@ -80,6 +87,7 @@ CREATE TABLE Seat (
     FOREIGN KEY (Flight_number) REFERENCES Flight([Number]),
     FOREIGN KEY (Flight_number,Leg_no) REFERENCES Flight_leg(Flight_number,Leg_no),
 	FOREIGN KEY (Flight_number,Leg_no,[Date]) REFERENCES Leg_instance(Flight_number,Leg_no,[Date]),
+    UNIQUE (Flight_number,Leg_no,[Date],Seat_no)
 );
 
 CREATE TABLE Can_land (
@@ -87,5 +95,6 @@ CREATE TABLE Can_land (
     Airport_code          VARCHAR NOT NULL,
     PRIMARY KEY ([Type_name], Airport_code),
     FOREIGN KEY ([Type_name]) REFERENCES Airplane_type([Type_name]),
-    FOREIGN KEY (Airport_code) REFERENCES Airport(Airport_code)
+    FOREIGN KEY (Airport_code) REFERENCES Airport(Airport_code),
+    UNIQUE ([Type_name], Airport_code)
 );
