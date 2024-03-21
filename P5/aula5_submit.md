@@ -30,6 +30,7 @@ Write here your answer e.g:
 
 ```
 ... Write here your answer ...
+π Fname,Minit,Lname (σ (Dno=3 ∧ Hours>20) (employee ⨝Ssn=Essn works_on))
 ```
 
 
@@ -37,6 +38,7 @@ Write here your answer e.g:
 
 ```
 ... Write here your answer ...
+π Fname,Minit,Lname (σ Essn=null (employee ⟕Ssn=Essn works_on))
 ```
 
 
