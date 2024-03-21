@@ -6,23 +6,21 @@
 ### *a)*
 
 ```
-Write here your answer e.g:
-(π Pname, Pnumber (project) ⨝ Pno=Pnumber (works_on)) ⨝.... 
+π Ssn,Fname,Minit,Lname,Pname (employee ⨝ Ssn=Essn (works_on ⨝ Pno=Pnumber (project)))	
 ```
 
 
 ### *b)* 
 
 ```
-... Write here your answer ...
+π Fname,Minit,Lname (employee ⨝ Super_ssn=Ssn_carlos (ρ Ssn_carlos←Ssn (π Ssn (σ Fname='Carlos' ∧ Minit='D' ∧ Lname='Gomes' (employee)))))
 ```
 
 
 ### *c)* 
 
 ```
-... Write here your answer ...
-γ Pnumber, Pname; sum(Hours) -> Hours ( (project) ⨝ Pnumber=Pno (works_on) )
+π Pname, Sum_hours ((γ Pno; sum(Hours) -> Sum_hours (works_on)) ⨝ Pno=Pnumber project)
 ```
 
 
@@ -80,27 +78,27 @@ Write here your answer e.g:
 ### *a)*
 
 ```
-... Write here your answer ...
+π nif,nome (σ numero=NULL ((encomenda) ⟖ fornecedor=nif (fornecedor)))
 ```
 
 ### *b)* 
 
 ```
-... Write here your answer ...
+π nome, avg_units ((γ codProd; avg(unidades ) -> avg_units (item)) ⨝ codProd=codigo (produto))
 ```
 
 
 ### *c)* 
 
 ```
-... Write here your answer ...
+γ avg(count_products) -> avg_products (γ numEnc; count(numEnc)->count_products (item))
 ```
 
 
 ### *d)* 
 
 ```
-... Write here your answer ...
+π fornecedor.nome, produto.nome, count_products ((γ nif, nome,codProd; count(codProd)->count_products (fornecedor ⨝ nif=fornecedor (item ⨝ numEnc=numero encomenda))) ⨝ codProd=codigo (produto))
 ```
 
 
@@ -109,13 +107,13 @@ Write here your answer e.g:
 ### *a)*
 
 ```
-... Write here your answer ...
+π nome (σ numPresc=NULL ((paciente) ⟕ paciente.numUtente=prescricao.numUtente (prescricao)))
 ```
 
 ### *b)* 
 
 ```
-... Write here your answer ...
+γ especialidade; count(numPresc)->count_numPresc ((medico) ⨝ numSNS=numMedico (prescricao))
 ```
 
 
