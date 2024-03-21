@@ -46,6 +46,7 @@ Write here your answer e.g:
 
 ```
 ... Write here your answer ...
+γ Dname;avg(Salary)->salario_medio ( σ Sex='F' (employee ⨝Dno=Dnumber department) )
 ```
 
 
@@ -53,6 +54,7 @@ Write here your answer e.g:
 
 ```
 ... Write here your answer ...
+σ dependentes > 2 ( γ Ssn,Fname,Minit,Lname;count(Dependent_name)->dependentes (employee ⨝Ssn=Essn dependent) )
 ```
 
 
@@ -60,6 +62,9 @@ Write here your answer e.g:
 
 ```
 ... Write here your answer ...
+π Ssn,Fname,Minit,Lname ( σ dependent.Essn=null ( (employee ⨝Ssn=Mgr_ssn department)⟕Ssn=Essn dependent ) )
+
+
 ```
 
 
