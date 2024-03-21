@@ -6,15 +6,14 @@
 ### *a)*
 
 ```
-Write here your answer e.g:
-(π Pname, Pnumber (project) ⨝ Pno=Pnumber (works_on)) ⨝.... 
+π Ssn,Fname,Minit,Lname,Pname (employee ⨝ Ssn=Essn (works_on ⨝ Pno=Pnumber (project)))	
 ```
 
 
 ### *b)* 
 
 ```
-... Write here your answer ...
+π Fname,Minit,Lname (employee ⨝ Super_ssn=Ssn_carlos (ρ Ssn_carlos←Ssn (π Ssn (σ Fname='Carlos' ∧ Minit='D' ∧ Lname='Gomes' (employee)))))
 ```
 
 
