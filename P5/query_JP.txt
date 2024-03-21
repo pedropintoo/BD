@@ -1,0 +1,40 @@
+-- (γ Pno; sum(Hours) -> Hours (works_on) )
+
+-- π Sex (σ Dno=1 (employee))
+
+-- project
+
+-- works_on 
+
+-- π Ssn, Fname, Minit, Lname, Pname ( ((employee) ⨝ Ssn=Essn (works_on)) ⨝ Pno = Pnumber (project) )
+
+-- Obtenha o nome de todos os funcionários supervisionados por ‘Carlos D Gomes’
+
+
+-- a = (π Ssn (σ Fname='Carlos' ∧ Minit='D' ∧ Lname='Gomes' (employee)))
+
+-- π Fname,Minit,Lname ( σ Super_ssn=a (employee) )
+
+-- employee ⨝ Super_ssn=Ssn_Carlos ρ Ssn_Carlos←Ssn (π Ssn (σ Fname='Carlos' ∧ Minit='D' ∧ Lname='Gomes' (employee)))
+
+-- Para cada projeto, listar o seu nome e o número de horas (por semana) gastos nesse projeto por todos os funcionários
+
+-- γ Pnumber, Pname; sum(Hours) -> Hours ( (project) ⨝ Pnumber=Pno (works_on) )
+
+-- γ Pnumber, Pname; sum(Hours) -> sum_hours ( (project) ⨝ Pnumber=Pno (works_on) )
+
+
+
+
+-- Obter o nome de todos os funcionários do departamento 3 que trabalham mais de 20 horas por semana no projeto ‘Aveiro Digital’
+
+-- π Fname,Minit,Lname (σ (Dno=3 ∧ Hours>20) (employee ⨝Ssn=Essn works_on))
+
+
+-- Nome dos funcionários que não trabalham para projetos
+-- π Fname,Minit,Lname (σ Essn=null (employee ⟕Ssn=Essn works_on))
+
+-- Para cada departamento, listar o seu nome e o salário médio dos seus funcionários do sexo feminino
+-- γ sum(Salary) -> sum_Salary (employee)
+
+-- π Dname (department ⨝Dno=Dnumber employee)
