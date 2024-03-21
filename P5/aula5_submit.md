@@ -22,6 +22,7 @@ Write here your answer e.g:
 
 ```
 ... Write here your answer ...
+γ Pnumber, Pname; sum(Hours) -> Hours ( (project) ⨝ Pnumber=Pno (works_on) )
 ```
 
 
