@@ -134,5 +134,5 @@
 ### *f)* 
 
 ```
-... Write here your answer ...
+π nome ( σ count_numSNS > 1 (γ paciente.nome; count(medico.numSNS)->count_numSNS (π numSNS,medico.nome,paciente.numUtente,paciente.nome (medico ⨝numSNS=numMedico ( paciente ⨝paciente.numUtente=prescricao.numUtente prescricao )))))
 ```
