@@ -70,6 +70,7 @@
 
 ```
 ... Write here your answer ...
+π Fname,Minit,Lname,Address (σ Dlocation≠'Aveiro' ∧ Plocation='Aveiro' (  ( project ⨝Pnumber=Pno (employee ⨝Ssn=Essn works_on) ) ⨝Dno=Dnumber (π department.Dnumber,Dname,Dlocation (department ⨝department.Dnumber=dept_location.Dnumber dept_location)) ))
 ```
 
 
