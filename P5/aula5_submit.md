@@ -55,9 +55,7 @@
 ### *h)* 
 
 ```
-π Ssn,Fname,Minit,Lname ( σ dependent.Essn=null ( (employee ⨝Ssn=Mgr_ssn department)⟕Ssn=Essn dependent ) )
-
-
+π Ssn,Fname,Minit,Lname ( σ dependent.Essn=null ( (employee ⨝Ssn=Mgr_ssn department)⟕Ssn=Essn dependent ) 
 ```
 
 
