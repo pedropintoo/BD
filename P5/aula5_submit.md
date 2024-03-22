@@ -128,7 +128,7 @@
 ### *e)* 
 
 ```
-... Write here your answer ...
+γ farmacia.nome, farmaceutica.nome ; count(farmaceutica.nome)->vendas ( (π presc_farmaco.numPresc, farmaceutica.nome, nomeFarmaco, farmacia.nome (farmaceutica ⨝numReg=numRegFarm (π presc_farmaco.numPresc, numRegFarm, nomeFarmaco, farmacia.nome ( presc_farmaco ⨝presc_farmaco.numPresc=prescricao.numPresc (prescricao ⨝farmacia=nome farmacia) )) )) )
 ```
 
 ### *f)* 
