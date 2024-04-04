@@ -5,49 +5,58 @@
 ### *a)* Todos os tuplos da tabela autores (authors);
 
 ```
-... Write here your answer ...
+SELECT * FROM authors;
 ```
 
 ### *b)* O primeiro nome, o último nome e o telefone dos autores;
 
 ```
-... Write here your answer ...
+SELECT au_fname,au_lname,phone FROM authors;
 ```
 
 ### *c)* Consulta definida em b) mas ordenada pelo primeiro nome (ascendente) e depois o último nome (ascendente); 
 
 ```
-... Write here your answer ...
+SELECT au_fname,au_lname,phone FROM authors
+ORDER BY au_fname,au_lname;
 ```
 
 ### *d)* Consulta definida em c) mas renomeando os atributos para (first_name, last_name, telephone); 
 
 ```
-... Write here your answer ...
+SELECT au_fname as first_name, au_lname as last_name, phone as telephone FROM authors
+ORDER BY au_fname,au_lname;
 ```
 
 ### *e)* Consulta definida em d) mas só os autores da Califórnia (CA) cujo último nome é diferente de ‘Ringer’; 
 
 ```
-... Write here your answer ...
+SELECT au_fname as first_name, au_lname as last_name, phone as telephone FROM authors
+WHERE state='CA' AND au_lname!='Ringer'
+ORDER BY au_fname,au_lname;
 ```
 
 ### *f)* Todas as editoras (publishers) que tenham ‘Bo’ em qualquer parte do nome; 
 
 ```
-... Write here your answer ...
+SELECT * FROM publishers
+WHERE pub_name LIKE '%Bo%';
 ```
 
 ### *g)* Nome das editoras que têm pelo menos uma publicação do tipo ‘Business’; 
 
 ```
-... Write here your answer ...
+SELECT DISTINCT publishers.pub_name 
+FROM publishers Inner Join titles on publishers.pub_id = titles.pub_id 
+WHERE [type]='Business';
 ```
 
 ### *h)* Número total de vendas de cada editora; 
 
 ```
-... Write here your answer ...
+SELECT publishers.pub_id, SUM(sales.qty) AS Numero_vendas
+FROM ( (publishers Inner Join titles on publishers.pub_id = titles.pub_id) Inner Join sales on titles.title_id = sales.title_id )
+GROUP BY publishers.pub_id;
 ```
 
 ### *i)* Número total de vendas de cada editora agrupado por título; 
@@ -160,7 +169,11 @@ FROM
 ##### *c)* 
 
 ```
-... Write here your answer ...
+SELECT P.Pname, T.Sum_hours
+FROM project AS P JOIN (SELECT works_on.Pno , SUM(Hours) as Sum_hours 
+												FROM works_on
+												GROUP BY works_on.Pno) AS T
+			ON P.Pnumber = T.Pno
 ```
 
 ##### *d)* 
