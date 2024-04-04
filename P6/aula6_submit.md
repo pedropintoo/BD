@@ -54,27 +54,34 @@ WHERE [type]='Business';
 ### *h)* Número total de vendas de cada editora; 
 
 ```
-SELECT publishers.pub_id, SUM(sales.qty) AS Numero_vendas
+SELECT publishers.pub_name, COUNT(sales.qty) AS Numero_vendas
 FROM ( (publishers Inner Join titles on publishers.pub_id = titles.pub_id) Inner Join sales on titles.title_id = sales.title_id )
-GROUP BY publishers.pub_id;
+GROUP BY publishers.pub_name;
 ```
 
 ### *i)* Número total de vendas de cada editora agrupado por título; 
 
 ```
-... Write here your answer ...
+SELECT publishers.pub_name, titles.title, COUNT(sales.qty) AS Numero_vendas
+FROM ( (publishers Inner Join titles on publishers.pub_id = titles.pub_id) Inner Join sales on titles.title_id = sales.title_id )
+GROUP BY publishers.pub_name, titles.title;
 ```
 
 ### *j)* Nome dos títulos vendidos pela loja ‘Bookbeat’; 
 
 ```
-... Write here your answer ...
+SELECT stores.stor_name, titles.title
+FROM ( (stores Inner Join sales on stores.stor_id = sales.stor_id) Inner Join titles on sales.title_id = titles.title_id )
+WHERE stores.stor_name = 'Bookbeat'
 ```
 
 ### *k)* Nome de autores que tenham publicações de tipos diferentes; 
 
 ```
-... Write here your answer ...
+SELECT au_fname as 'First name', au_lname as 'Last name', COUNT(titles.type) AS 'Numero Tipo de Publicacoes'
+FROM ( titles Inner Join titleauthor on titles.title_id=titleauthor.title_id) Inner Join authors on titleauthor.au_id = authors.au_id 
+GROUP BY authors.au_fname, authors.au_lname
+HAVING COUNT(titles.type) > 1;
 ```
 
 ### *l)* Para os títulos, obter o preço médio e o número total de vendas agrupado por tipo (type) e editora (pub_id);
