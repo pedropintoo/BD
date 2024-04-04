@@ -189,31 +189,61 @@ WHERE employee.Dno=3 AND works_on.Hours>20
 ##### *e)* 
 
 ```
-... Write here your answer ...
+SELECT employee.Fname,	employee.Minit, employee.Lname
+FROM 
+	employee LEFT JOIN works_on
+	ON employee.Ssn=works_on.Essn
+WHERE works_on.Essn IS NULL
 ```
 
 ##### *f)* 
 
 ```
-... Write here your answer ...
+SELECT Dname, avg(Salary) AS average_salary
+FROM 
+	employee JOIN department
+	ON employee.Dno = department.Dnumber
+WHERE employee.Sex='F'
+GROUP BY Dname
 ```
 
-##### *g)* 
+##### *g)*	
 
 ```
-... Write here your answer ...
+SELECT employee.Ssn, employee.Fname, employee.Minit, employee.Lname, COUNT(employee.Ssn) AS cont
+FROM 
+	employee JOIN dependent
+	ON employee.Ssn=dependent.Essn
+GROUP BY employee.Ssn, employee.Fname, employee.Minit, employee.Lname
+HAVING count(employee.Ssn) > 2
 ```
 
 ##### *h)* 
 
 ```
-... Write here your answer ...
+SELECT Ssn, Fname, Minit, Lname
+FROM [dependent] RIGHT JOIN (SELECT Ssn, Fname, Minit, Lname
+							FROM
+								employee JOIN department 
+								ON Ssn = Mgr_ssn) AS T
+	ON Ssn = Essn
+WHERE Essn IS NULL
 ```
 
 ##### *i)* 
 
 ```
-... Write here your answer ...
+SELECT DISTINCT Fname, Lname, Address
+FROM 
+	employee JOIN works_on
+	ON Ssn=Essn
+	JOIN project
+	ON Pnumber=Pno
+	JOIN department
+	ON Dno=Dnum
+	JOIN dept_locations
+	ON Dno=Dnum
+WHERE Plocation='Aveiro' AND Dlocation!='Aveiro'
 ```
 
 ### 5.2
