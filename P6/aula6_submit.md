@@ -25,7 +25,7 @@ ORDER BY au_fname,au_lname;
 
 ```
 SELECT au_fname as first_name, au_lname as last_name, phone as telephone FROM authors
-ORDER BY au_fname,au_lname;
+ORDER BY first_name,last_name;
 ```
 
 ### *e)* Consulta definida em d) mas só os autores da Califórnia (CA) cujo último nome é diferente de ‘Ringer’; 
@@ -33,7 +33,7 @@ ORDER BY au_fname,au_lname;
 ```
 SELECT au_fname as first_name, au_lname as last_name, phone as telephone FROM authors
 WHERE state='CA' AND au_lname!='Ringer'
-ORDER BY au_fname,au_lname;
+ORDER BY first_name,last_name;
 ```
 
 ### *f)* Todas as editoras (publishers) que tenham ‘Bo’ em qualquer parte do nome; 
@@ -87,55 +87,97 @@ HAVING COUNT(titles.type) > 1;
 ### *l)* Para os títulos, obter o preço médio e o número total de vendas agrupado por tipo (type) e editora (pub_id);
 
 ```
-... Write here your answer ...
+SELECT titles.pub_id AS 'Editora', titles.[type] AS 'Tipo' , AVG(titles.price) AS 'Preco Medio', sum(sales.qty) AS 'Numero total de vendas'
+FROM titles join sales on titles.title_id = sales.title_id
+GROUP BY titles.[type], titles.pub_id
 ```
 
 ### *m)* Obter o(s) tipo(s) de título(s) para o(s) qual(is) o máximo de dinheiro “à cabeça” (advance) é uma vez e meia superior à média do grupo (tipo);
 
 ```
-... Write here your answer ...
+SELECT titles.[type] AS 'Tipo'
+FROM titles
+GROUP BY titles.[type]
+HAVING MAX(titles.advance) > 1.5*AVG(titles.advance) 
 ```
 
-### *n)* Obter, para cada título, nome dos autores e valor arrecadado por estes com a sua venda;
+### *n)* Obter, para cada título, nome dos autores e valor arrecadado por estes com a sua venda; 
 
 ```
-... Write here your answer ...
+SELECT distinct titles.title AS 'Titulo' , authors.au_fname as 'Primeiro Nome',authors.au_lname as 'Ultimo Nome', ( titles.price * (titles.royalty * titleauthor.royaltyper / 100) ) / 100 AS 'Valor arrecadado' 
+FROM ( (titles JOIN titleauthor on titles.title_id=titleauthor.title_id) join authors on titleauthor.au_id = authors.au_id )
 ```
 
 ### *o)* Obter uma lista que incluía o número de vendas de um título (ytd_sales), o seu nome, a faturação total, o valor da faturação relativa aos autores e o valor da faturação relativa à editora;
 
 ```
-... Write here your answer ...
+SELECT titles.title AS 'Titulo', titles.ytd_sales AS 'Numero de vendas', titles.price*titles.ytd_sales AS 'Faturação total',  price*ytd_sales*royalty/100 as 'Faturacao Autores', price*ytd_sales-price*ytd_sales*royalty/100 as 'Faturacao Editoras'
+FROM titles
+WHERE titles.ytd_sales IS NOT NULL
 ```
 
 ### *p)* Obter uma lista que incluía o número de vendas de um título (ytd_sales), o seu nome, o nome de cada autor, o valor da faturação de cada autor e o valor da faturação relativa à editora;
 
 ```
-... Write here your answer ...
+SELECT titles.title AS 'Titulo', titles.ytd_sales AS 'Numero de vendas', CONCAT(authors.au_fname, ' ', authors.au_lname) as 'Autor', ( titles.price* titles.ytd_sales * (titles.royalty * titleauthor.royaltyper / 100) ) / 100 AS 'Faturacao Autor', titles.price*titles.ytd_sales - ( titles.price* titles.ytd_sales * titles.royalty ) / 100 AS 'Faturacao Editora'
+FROM ( (titles join titleauthor on titles.title_id=titleauthor.title_id) join authors on titleauthor.au_id=authors.au_id )
+WHERE titles.ytd_sales IS NOT NULL
+ORDER BY 'Titulo'
 ```
 
 ### *q)* Lista de lojas que venderam pelo menos um exemplar de todos os livros;
 
 ```
-... Write here your answer ...
+SELECT stores.stor_id, stores.stor_name, COUNT(sales.title_id) AS count_id
+FROM stores join sales on stores.stor_id=sales.stor_id
+GROUP BY stores.stor_id, stores.stor_name
+HAVING COUNT(sales.title_id)=(SELECT COUNT(title_id) FROM titles)
 ```
 
 ### *r)* Lista de lojas que venderam mais livros do que a média de todas as lojas;
 
 ```
-... Write here your answer ...
+SELECT stores.stor_name AS 'Loja', SUM(sales.qty) AS 'Numero livros vendidos'
+FROM stores join sales on stores.stor_id=sales.stor_id 
+GROUP BY stores.stor_id , stores.stor_name
+HAVING SUM(sales.qty) > (	SELECT AVG(sum_qty)
+							FROM (	SELECT sum(sales.qty) AS sum_qty, stor_id
+									FROM sales
+									GROUP BY stor_id
+									)
+									as T
+						);
 ```
 
 ### *s)* Nome dos títulos que nunca foram vendidos na loja “Bookbeat”;
 
 ```
-... Write here your answer ...
+SELECT titles.title_id, titles.title
+FROM 
+	titles LEFT JOIN (
+		SELECT sales.title_id
+		FROM sales
+		INNER JOIN stores ON sales.stor_id = stores.stor_id
+		WHERE stores.stor_name = 'Bookbeat'
+	) AS T 
+	ON titles.title_id = T.title_id
+WHERE T.title_id IS NULL;
+
 ```
 
 ### *t)* Para cada editora, a lista de todas as lojas que nunca venderam títulos dessa editora; 
 
 ```
-... Write here your answer ...
+(SELECT publishers.pub_name, stores.stor_name
+FROM stores, publishers )
+EXCEPT
+(SELECT pub_name, stor_name
+FROM publishers JOIN 
+(	SELECT pub_id AS ppid, sales.stor_id, stor_name
+	FROM titles JOIN sales
+	ON titles.title_id=sales.title_id
+	JOIN stores
+	ON sales.stor_id=stores.stor_id) AS T ON pub_id=ppid);
 ```
 
 ## Problema 6.2
