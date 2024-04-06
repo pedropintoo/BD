@@ -311,9 +311,9 @@ WHERE Plocation='Aveiro' AND Dlocation!='Aveiro'
 
 ```
 SELECT fornecedor.nif, fornecedor.nome
-FROM fornecedor
-RIGHT OUTER JOIN encomenda on encomenda.nif = fornecedor.nif
-WHERE encomenda.numero = NULL
+FROM encomenda 
+RIGHT OUTER JOIN fornecedor on encomenda.fornecedor = fornecedor.nif
+WHERE encomenda.numero is NULL
 ```
 
 ##### *b)* 
@@ -329,12 +329,12 @@ GROUP BY produto.nome
 ##### *c)* 
 
 ```
-SELECT AVG(T.count_products) AS avg_products
+SELECT AVG(subquery.count_products) AS avg_products
 FROM (
-	SELECT COUNT(*) AS count_products
-	FROM item
-	GROUP BY item.numEnc
-) AS T
+  SELECT numEnc, COUNT(*) AS count_products
+  FROM item
+  GROUP BY numEnc
+) AS subquery;
 ```
 
 
@@ -342,20 +342,19 @@ FROM (
 
 ```
 SELECT 
-    fornecedor.nome AS fornecedor_nome, 
-    produto.nome AS produto_nome, 
-    COUNT(item.codProd) AS count_products
+    fornecedor.nome, 
+    produto.nome, 
+    COUNT(produto.nome) AS count_products  
 FROM 
     fornecedor
-JOIN 
-    encomenda ON fornecedor.nif = encomenda.fornecedor
-JOIN 
-    item ON item.numEnc = encomenda.numero
-JOIN 
-    produto ON item.codProd = produto.codigo
+		JOIN 
+				encomenda ON fornecedor.nif = encomenda.fornecedor
+		JOIN 
+				item ON item.numEnc = encomenda.numero
+		JOIN 
+				produto ON item.codProd = produto.codigo
 GROUP BY 
     fornecedor.nome, produto.nome
-
 ```
 
 ### 5.3
