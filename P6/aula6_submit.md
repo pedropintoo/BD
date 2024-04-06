@@ -84,7 +84,7 @@ GROUP BY authors.au_fname, authors.au_lname
 HAVING COUNT(titles.type) > 1;
 ```
 
-### *l)* Para os títulos, obter o preço médio e o número total de vendas agrupado por tipo (type) e editora (pub_id);  ATENCAO
+### *l)* Para os títulos, obter o preço médio e o número total de vendas agrupado por tipo (type) e editora (pub_id);
 
 ```
 SELECT titles.pub_id AS 'Editora', titles.[type] AS 'Tipo' , AVG(titles.price) AS 'Preco Medio', sum(sales.qty) AS 'Numero total de vendas'
@@ -101,10 +101,10 @@ GROUP BY titles.[type]
 HAVING MAX(titles.advance) > 1.5*AVG(titles.advance) 
 ```
 
-### *n)* Obter, para cada título, nome dos autores e valor arrecadado por estes com a sua venda;  ATENCAO
+### *n)* Obter, para cada título, nome dos autores e valor arrecadado por estes com a sua venda; 
 
 ```
-SELECT distinct titles.title AS 'Titulo' , authors.au_fname as 'Primeiro Nome',authors.au_lname as 'Ultimo Nome', ( titles.price * titleauthor.royaltyper ) / 100 AS 'Valor arrecadado' 
+SELECT distinct titles.title AS 'Titulo' , authors.au_fname as 'Primeiro Nome',authors.au_lname as 'Ultimo Nome', ( titles.price * (titles.royalty * titleauthor.royaltyper / 100) ) / 100 AS 'Valor arrecadado' 
 FROM ( (titles JOIN titleauthor on titles.title_id=titleauthor.title_id) join authors on titleauthor.au_id = authors.au_id )
 ```
 
@@ -119,8 +119,10 @@ WHERE titles.ytd_sales IS NOT NULL
 ### *p)* Obter uma lista que incluía o número de vendas de um título (ytd_sales), o seu nome, o nome de cada autor, o valor da faturação de cada autor e o valor da faturação relativa à editora;
 
 ```
-SELECT titles.title AS 'Titulo', titles.ytd_sales AS 'Numero de vendas', CONCAT(authors.au_fname, ' ', authors.au_lname) as 'Autor', ( titles.price* titles.ytd_sales * titleauthor.royaltyper ) / 100 AS 'Faturacao Autor', titles.price*titles.ytd_sales - ( titles.price* titles.ytd_sales * titleauthor.royaltyper ) / 100 AS 'Faturacao Editora'
+SELECT titles.title AS 'Titulo', titles.ytd_sales AS 'Numero de vendas', CONCAT(authors.au_fname, ' ', authors.au_lname) as 'Autor', ( titles.price* titles.ytd_sales * (titles.royalty * titleauthor.royaltyper / 100) ) / 100 AS 'Faturacao Autor', titles.price*titles.ytd_sales - ( titles.price* titles.ytd_sales * titles.royalty ) / 100 AS 'Faturacao Editora'
 FROM ( (titles join titleauthor on titles.title_id=titleauthor.title_id) join authors on titleauthor.au_id=authors.au_id )
+WHERE titles.ytd_sales IS NOT NULL
+ORDER BY 'Titulo'
 ```
 
 ### *q)* Lista de lojas que venderam pelo menos um exemplar de todos os livros;
