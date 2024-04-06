@@ -25,7 +25,7 @@ ORDER BY au_fname,au_lname;
 
 ```
 SELECT au_fname as first_name, au_lname as last_name, phone as telephone FROM authors
-ORDER BY au_fname,au_lname;
+ORDER BY first_name,last_name;
 ```
 
 ### *e)* Consulta definida em d) mas só os autores da Califórnia (CA) cujo último nome é diferente de ‘Ringer’; 
