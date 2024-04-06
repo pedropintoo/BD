@@ -54,14 +54,16 @@ SELECT pub_name, COUNT(qty) as sales FROM ((publishers INNER JOIN titles ON titl
 ### *i)* Número total de vendas de cada editora agrupado por título; 
 
 ```
-SELECT pub_name, title, COUNT(qty) as sales FROM ((publishers INNER JOIN titles ON titles.pub_id = publishers.pub_id) INNER JOIN sales
+SELECT pub_name, title, COUNT(qty) as sales 
+FROM ((publishers INNER JOIN titles ON titles.pub_id = publishers.pub_id) INNER JOIN sales
 	ON titles.title_id = sales.title_id) GROUP BY pub_name, title
 ```
 
 ### *j)* Nome dos títulos vendidos pela loja ‘Bookbeat’; 
 
 ```
-SELECT stor_name, title FROM ((stores INNER JOIN sales ON stores.stor_id = sales.stor_id) INNER JOIN titles
+SELECT stor_name, title
+FROM ((stores INNER JOIN sales ON stores.stor_id = sales.stor_id) INNER JOIN titles
 	ON titles.title_id = sales.title_id) WHERE stor_name='Bookbeat'
 ```
 

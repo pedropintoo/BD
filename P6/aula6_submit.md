@@ -33,7 +33,7 @@ ORDER BY first_name,last_name;
 ```
 SELECT au_fname as first_name, au_lname as last_name, phone as telephone FROM authors
 WHERE state='CA' AND au_lname!='Ringer'
-ORDER BY au_fname,au_lname;
+ORDER BY first_name,last_name;
 ```
 
 ### *f)* Todas as editoras (publishers) que tenham ‘Bo’ em qualquer parte do nome; 
@@ -84,7 +84,7 @@ GROUP BY authors.au_fname, authors.au_lname
 HAVING COUNT(titles.type) > 1;
 ```
 
-### *l)* Para os títulos, obter o preço médio e o número total de vendas agrupado por tipo (type) e editora (pub_id);
+### *l)* Para os títulos, obter o preço médio e o número total de vendas agrupado por tipo (type) e editora (pub_id);  ATENCAO
 
 ```
 SELECT titles.pub_id AS 'Editora', titles.[type] AS 'Tipo' , AVG(titles.price) AS 'Preco Medio', sum(sales.qty) AS 'Numero total de vendas'
@@ -101,7 +101,7 @@ GROUP BY titles.[type]
 HAVING MAX(titles.advance) > 1.5*AVG(titles.advance) 
 ```
 
-### *n)* Obter, para cada título, nome dos autores e valor arrecadado por estes com a sua venda;
+### *n)* Obter, para cada título, nome dos autores e valor arrecadado por estes com a sua venda;  ATENCAO
 
 ```
 SELECT distinct titles.title AS 'Titulo' , authors.au_fname as 'Primeiro Nome',authors.au_lname as 'Ultimo Nome', ( titles.price * titleauthor.royaltyper ) / 100 AS 'Valor arrecadado' 
@@ -112,7 +112,8 @@ FROM ( (titles JOIN titleauthor on titles.title_id=titleauthor.title_id) join au
 
 ```
 SELECT titles.title AS 'Titulo', titles.ytd_sales AS 'Numero de vendas', titles.price*titles.ytd_sales AS 'Faturação total',  price*ytd_sales*royalty/100 as 'Faturacao Autores', price*ytd_sales-price*ytd_sales*royalty/100 as 'Faturacao Editoras'
-FROM titles 
+FROM titles
+WHERE titles.ytd_sales IS NOT NULL
 ```
 
 ### *p)* Obter uma lista que incluía o número de vendas de um título (ytd_sales), o seu nome, o nome de cada autor, o valor da faturação de cada autor e o valor da faturação relativa à editora;
