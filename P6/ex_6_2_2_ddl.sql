@@ -5,41 +5,39 @@ GO
 
 CREATE TABLE Produto(
     codigo              INT NOT NULL,
-    nome                VARCHAR NOT NULL,
-    preco               VARCHAR NOT NULL,
-    iva                 VARCHAR NOT NULL,
+    nome                VARCHAR(20) NOT NULL,
+    preco               VARCHAR(4) NOT NULL,
+    iva                 VARCHAR(4) NOT NULL,
     PRIMARY KEY (codigo),
     UNIQUE (nome)
 );  
 
 
 CREATE TABLE Fornecedor(
-    nif                 VARCHAR NOT NULL,
-    nome                VARCHAR NOT NULL,
-    addr                VARCHAR NOT NULL,
-    fax                 VARCHAR NOT NULL,
-    cond_pagamento      VARCHAR NOT NULL,
+    nif                 VARCHAR(20) NOT NULL,
+    nome                VARCHAR(20) NOT NULL,
+    addr                VARCHAR(20) NOT NULL,
+    fax                 VARCHAR(20) NOT NULL,
+    cond_pagamento      VARCHAR(20) NOT NULL,
     codigo              INT NOT NULL,
     PRIMARY KEY (nif),
     FOREIGN KEY (codigo) REFERENCES Produto(codigo),
-    UNIQUE (nif)
+    UNIQUE (nome)
 );    
 
 
 CREATE TABLE Encomenda(
     num                INT NOT NULL,
-    [data]             VARCHAR NOT NULL,
-    nif                VARCHAR NOT NULL,
+    [data]             VARCHAR(6) NOT NULL,
+    nif                VARCHAR(20) NOT NULL,
     PRIMARY KEY (num),
-    FOREIGN KEY (nif) REFERENCES Fornecedor(nif),
-    UNIQUE (num)
+    FOREIGN KEY (nif) REFERENCES Fornecedor(nif)
 );    
 
 CREATE TABLE TipoFornecedor(
     codigo              INT NOT NULL,
-    nome                VARCHAR NOT NULL,
-    PRIMARY KEY (codigo),
-    UNIQUE (codigo)
+    nome                VARCHAR(20) NOT NULL,
+    PRIMARY KEY (codigo)
 );
 
 CREATE TABLE Contem(
@@ -49,5 +47,4 @@ CREATE TABLE Contem(
     PRIMARY KEY (num_encomenda,codigo),
     FOREIGN KEY (num_encomenda) REFERENCES Encomenda(num),
     FOREIGN KEY (codigo) REFERENCES Produto(codigo),
-    UNIQUE (num_encomenda,codigo)
 );
