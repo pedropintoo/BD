@@ -65,7 +65,7 @@ INSERT INTO Encomenda (
 
 -- INSERT INTO Contem
 INSERT INTO item (
-    numEnc, codProd, num_unidades
+    numEnc, codProd, unidades
 ) VALUES
     (1, 10001, 200),
     (1, 10004, 300),
