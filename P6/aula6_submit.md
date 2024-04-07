@@ -382,31 +382,63 @@ WHERE prescricao.numUtente IS NULL
 ##### *b)* 
 
 ```
-... Write here your answer ...
+SELECT medico.especialidade, COUNT(prescricao.numPresc) AS cout_numPresc
+FROM 
+	medico JOIN prescricao
+	ON medico.numSNS = prescricao.numMedico
+GROUP BY medico.especialidade
 ```
-
 
 ##### *c)* 
 
 ```
-... Write here your answer ...
+SELECT farmacia.nome, COUNT(prescricao.numPresc) AS cout_numPresc
+FROM 
+	farmacia JOIN prescricao
+	ON farmacia.nome = prescricao.farmacia
+GROUP BY farmacia.nome
 ```
 
 
 ##### *d)* 
 
 ```
-... Write here your answer ...
+(
+SELECT farmaco.nome
+FROM farmaco
+WHERE farmaco.numRegFarm = 906
+) 
+EXCEPT 
+(
+SELECT presc_farmaco.nomeFarmaco
+FROM presc_farmaco
+WHERE presc_farmaco.numRegFarm = 906
+)
 ```
 
 ##### *e)* 
 
 ```
-... Write here your answer ...
+SELECT farmacia.nome, farmaceutica.nome, COUNT(farmaceutica.nome) AS count_farm
+FROM 
+	prescricao JOIN farmacia
+	ON prescricao.farmacia = farmacia.nome
+	JOIN presc_farmaco
+	ON prescricao.numPresc = presc_farmaco.numPresc
+	JOIN farmaceutica
+	ON presc_farmaco.numRegFarm = farmaceutica.numReg
+GROUP BY farmacia.nome, farmaceutica.nome
 ```
 
 ##### *f)* 
 
 ```
-... Write here your answer ...
+SELECT paciente.nome 
+FROM 
+	paciente JOIN prescricao
+	ON paciente.numUtente = prescricao.numUtente
+	JOIN medico
+	ON prescricao.numMedico = medico.numSNS
+GROUP BY paciente.numUtente, paciente.nome
+HAVING COUNT(medico.numSNS) > 1
 ```
