@@ -348,7 +348,11 @@ WHERE Plocation='Aveiro' AND Dlocation!='Aveiro'
 ##### *a)*
 
 ```
-... Write here your answer ...
+SELECT paciente.nome 
+FROM 
+	paciente LEFT JOIN prescricao
+	ON paciente.numUtente = prescricao.numUtente
+WHERE prescricao.numUtente IS NULL
 ```
 
 ##### *b)* 
