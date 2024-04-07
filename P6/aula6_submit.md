@@ -310,27 +310,51 @@ WHERE Plocation='Aveiro' AND Dlocation!='Aveiro'
 ##### *a)*
 
 ```
-... Write here your answer ...
+SELECT fornecedor.nif, fornecedor.nome
+FROM encomenda 
+RIGHT OUTER JOIN fornecedor on encomenda.fornecedor = fornecedor.nif
+WHERE encomenda.numero is NULL
 ```
 
 ##### *b)* 
 
 ```
-... Write here your answer ...
+SELECT produto.nome, AVG(item.unidades) AS avg_units
+FROM produto 
+JOIN item ON produto.codigo = item.codProd
+GROUP BY produto.nome
 ```
 
 
 ##### *c)* 
 
 ```
-... Write here your answer ...
+SELECT AVG(subquery.count_products) AS avg_products
+FROM (
+  SELECT numEnc, COUNT(*) AS count_products
+  FROM item
+  GROUP BY numEnc
+) AS subquery;
 ```
 
 
 ##### *d)* 
 
 ```
-... Write here your answer ...
+SELECT 
+    fornecedor.nome, 
+    produto.nome, 
+    COUNT(produto.nome) AS count_products  
+FROM 
+    fornecedor
+		JOIN 
+				encomenda ON fornecedor.nif = encomenda.fornecedor
+		JOIN 
+				item ON item.numEnc = encomenda.numero
+		JOIN 
+				produto ON item.codProd = produto.codigo
+GROUP BY 
+    fornecedor.nome, produto.nome
 ```
 
 ### 5.3
