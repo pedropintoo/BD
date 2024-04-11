@@ -1,7 +1,5 @@
-CREATE DATABASE AcademiQuest
-
 GO
-USE AcademiQuest
+USE p5g1
 GO
 
 CREATE TABLE Topic(
@@ -85,7 +83,7 @@ CREATE TABLE Institution(
     UNIQUE ([Name])
 )
 
-CREATE TABLE User (
+CREATE TABLE [User] (
     UserID              INT             NOT NULL,
     [Name]              VARCHAR(50)     NOT NULL,
     Email               VARCHAR(320)    NOT NULL,
@@ -101,7 +99,7 @@ CREATE TABLE Favorite_Journal (
     UserID              INT             NOT NULL,
     PRIMARY KEY (JournalID,UserID),
     FOREIGN KEY (JournalID) REFERENCES Journal(JournalID),
-    FOREIGN KEY (UserID) REFERENCES User(UserID)
+    FOREIGN KEY (UserID) REFERENCES [User](UserID)
 )
 
 CREATE TABLE Interested_in (
@@ -109,14 +107,14 @@ CREATE TABLE Interested_in (
     UserID              INT             NOT NULL,
     PRIMARY KEY (TopicID,UserID),
     FOREIGN KEY (TopicID) REFERENCES Topic(TopicID),
-    FOREIGN KEY (UserID) REFERENCES User(UserID)
+    FOREIGN KEY (UserID) REFERENCES [User](UserID)
 )
 
 CREATE TABLE Favorite_Article (
     ArticleID           INT             NOT NULL,
     UserID              INT             NOT NULL,
     PRIMARY KEY (ArticleID,UserID),
-    FOREIGN KEY (UserID) REFERENCES User(UserID),
+    FOREIGN KEY (UserID) REFERENCES [User](UserID),
     FOREIGN KEY (ArticleID) REFERENCES Article(ArticleID)
 )
 
@@ -124,7 +122,7 @@ CREATE TABLE Read_by (
     ArticleID           INT             NOT NULL,
     UserID              INT             NOT NULL,
     PRIMARY KEY (ArticleID,UserID),
-    FOREIGN KEY (UserID) REFERENCES User(UserID),
+    FOREIGN KEY (UserID) REFERENCES [User](UserID),
     FOREIGN KEY (ArticleID) REFERENCES Article(ArticleID)
 )
 
@@ -155,5 +153,5 @@ CREATE TABLE Comment (
     [Date]              DATE,
     PRIMARY KEY (ArticleID,UserID,CommentID),
     FOREIGN KEY (ArticleID) REFERENCES Article(ArticleID),
-    FOREIGN KEY (UserID) REFERENCES User(UserID)
+    FOREIGN KEY (UserID) REFERENCES [User](UserID)
 )
