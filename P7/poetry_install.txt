@@ -1,0 +1,19 @@
+Install Poetry Windows
+
+ - Instalar Python do google! (não da Microsoft Store) - C:\Users\pedro\AppData\Local\Programs\Python\Python312
+
+ - (Invoke-WebRequest -Uri https://install.python-poetry.org -UseBasicParsing).Content | python -
+[(opcional para desinstalar) (Invoke-WebRequest -Uri https://install.python-poetry.org -UseBasicParsing).Content | python - --uninstall]
+
+ - Ir ao folder que ele sugere, ou ao "Actual Location" - no caso de dar erro. Se não der erro custuma ser o "C:\Users\pedro\AppData\Roaming\Python\Scripts".
+ - Nesse path tem de ter um poetry. Copia esse path e adiciona a variavel de ambiente $Path do Sistema (em baixo). Fechar e voltar a instalar o Vscode.
+
+ - poetry --version
+
+ - correr... poetry shell, ...
+
+[erro possível]
+ - "cannot be loaded because running scripts is disable on ..."
+ - Set-ExecutionPolicy RemoteSigned, como Administrador do PowerShell
+ - fazer poetry shell e eliminar o folder que ele está a utilizar, porque foi mal criado. Eventualmente fechar vscode...
+ - poetry install + poetry shell

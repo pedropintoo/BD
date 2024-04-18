@@ -25,3 +25,6 @@ def conn_string() -> str:
 def create_connection():
     my_conn_string = conn_string()
     return pyodbc.connect(my_conn_string)
+
+# if __name__ == "__main__":
+#     print(conn_string())
