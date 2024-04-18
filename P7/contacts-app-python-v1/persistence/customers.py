@@ -82,8 +82,35 @@ def create(customer: CustomerDetails):
         cursor.commit()
 
 
+# delete and create a new one
 def update(c_id: str, customer: CustomerDetails):
-    raise NotImplementedError()
+
+    with create_connection() as conn:
+        cursor = conn.cursor()
+        try:
+            cursor.execute(
+                """
+                UPDATE Customers
+                SET CompanyName= ?, ContactName = ?, ContactTitle = ?, 
+                    Address = ?, City = ?, Region = ?, PostalCode = ?, Country = ?, Phone = ?, Fax = ?
+                WHERE CustomerID = ?;
+                """,
+                customer.company_name,
+                customer.contact_name,
+                customer.contact_title,
+                customer.address,
+                customer.city,
+                customer.region,
+                customer.postal_code,
+                customer.country,
+                customer.phone,
+                customer.fax,
+                c_id,
+            )
+            cursor.commit()
+        except IntegrityError as ex:
+            if ex.args[0] == "23000":
+                raise Exception(f"Customer {c_id} cannot be deleted.") from ex
 
 
 def delete(c_id: str):
