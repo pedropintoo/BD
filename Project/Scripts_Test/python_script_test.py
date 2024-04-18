@@ -4,7 +4,7 @@ import pyodbc
 server = 'JOAOPINTO' # Substitua pelo seu servidor
 database = 'MinhaBaseDeDados' # Nome da base de dados que acabamos de criar
 username = 'sa'
-password = '!Admin12345'
+password = os.getenv("SQL_PASSWORD")
 cnxn_string = f'DRIVER={{SQL Server}};SERVER={server};DATABASE={database};UID={username};PWD={password}'
 
 # Conectar ao banco de dados

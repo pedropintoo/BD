@@ -1,6 +1,7 @@
 import configparser
 import functools
 from pathlib import Path
+import os
 
 import pyodbc
 
@@ -10,7 +11,7 @@ def conn_string() -> str:
     config_file = Path("conf.ini")
     assert config_file.exists(), "conf.ini file not found"
 
-    config = configparser.ConfigParser()
+    config = configparser.ConfigParser(os.environ)
     config.read(config_file)
 
     server = config["database"]["server"]

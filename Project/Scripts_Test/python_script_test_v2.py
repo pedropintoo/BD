@@ -4,7 +4,7 @@ import pyodbc
 server = r'tcp:mednat.ieeta.pt\SQLSERVER,8101' # Substitua pelo seu servidor
 database = 'p5g1' # Nome da base de dados que acabamos de criar
 username = 'p5g1'
-password = '!Admin12345'
+password = os.getenv("SQL_PASSWORD")
 cnxn_string = f'DRIVER={{SQL Server}};SERVER={server};DATABASE={database};UID={username};PWD={password}'
 
 # Conectar ao banco de dados

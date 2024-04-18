@@ -2,6 +2,7 @@ import pyodbc
 from scholarly import scholarly
 import requests
 import json
+import os
 
 ARTICLE_ID = 0
 JOURNAL_ID = 0
@@ -34,7 +35,7 @@ def insert_database(journal, journalVolume, article, institutions, authors):
     server = r'tcp:mednat.ieeta.pt\SQLSERVER,8101'
     database = 'p5g1'
     username = 'p5g1'
-    password = '!Admin12345'
+    password = os.getenv("SQL_PASSWORD")
     cnxn_string = f'DRIVER={{SQL Server}};SERVER={server};DATABASE={database};UID={username};PWD={password}'
 
     # Connection
