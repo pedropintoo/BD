@@ -15,5 +15,5 @@ Install Poetry Windows
 [erro possível]
  - "cannot be loaded because running scripts is disable on ..."
  - Set-ExecutionPolicy RemoteSigned, como Administrador do PowerShell
- - fazer poetry shell e eliminar o folder que ele está a utilizar, porque foi mal criado. Eventualmente fechar vscode...
+ - Eventualmente fechar vscode... fazer poetry shell e eliminar o folder que ele está a utilizar, porque foi mal criado ($ exit).
  - poetry env remove + poetry install + poetry shell [ou poetry env remove python]
