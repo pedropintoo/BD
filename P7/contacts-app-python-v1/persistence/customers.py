@@ -49,8 +49,8 @@ def read(c_id: str):
             row.Region or "",
             row.PostalCode or "",
             row.Country or "",
-            "",
-            "",
+            row.Phone or "",
+            row.Fax or "",
         )
 
 
