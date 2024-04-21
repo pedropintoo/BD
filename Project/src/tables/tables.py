@@ -37,3 +37,13 @@ class Topic(NamedTuple):
     TopicID: str
     Name: str
     Description: str    
+
+class Article(NamedTuple):
+    ArticleID: str
+    Title: str
+    Abstract: str
+    DOI: str
+    StartPage: int
+    EndPage: int
+    JournalID: str
+    Volume: int    

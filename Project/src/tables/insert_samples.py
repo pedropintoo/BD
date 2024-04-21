@@ -108,21 +108,7 @@ def insert_topic(topic: Topic):
         except Exception as e:
             print("Error...", topic, e)
 
-def insert_topics(buffer):
-    # Read data from the file into a list of dictionaries
-    for line in buffer:
-        # Load each line as JSON
-        topic_data = json.loads(line)
 
-        # Create Topic object
-        topic = Topic(
-            TopicID = topic_data["topicid"],
-            Name = topic_data["name"],
-            Description = topic_data["description"]
-            )
-
-        # Insert topic data
-        insert_topic(topic)
 
 if __name__ == '__main__':
     # # Authors + Institutions
