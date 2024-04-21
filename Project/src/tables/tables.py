@@ -32,3 +32,8 @@ class Institution(NamedTuple):
     InstitutionID: str
     Name: str
     Address: str
+
+class Topic(NamedTuple):
+    TopicID: str
+    Name: str
+    Description: str    

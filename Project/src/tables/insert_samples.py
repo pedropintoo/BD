@@ -16,6 +16,7 @@ def getNextInstitutionID():
         result = cursor.fetchone()
         return int(result[0]) + 1 if result[0] else 1
 
+
 def insert_author(author: Author):
     with create_connection() as conn:
         cursor = conn.cursor()
@@ -88,6 +89,40 @@ def insert_authors_and_institutions(buffer):
         # Insert author data
         insert_author(author)
 
+def insert_topic(topic: Topic):
+    with create_connection() as conn:
+        cursor = conn.cursor()
+        try:
+            cursor.execute(
+                "INSERT INTO Topic VALUES (?, ?, ?)",
+                topic.TopicID,
+                topic.Name,
+                topic.Description)
+            cursor.commit()
+        except pyodbc.IntegrityError as e:
+            print("Topic integrity error.", e)
+        except pyodbc.ProgrammingError as e:
+            print("Topic creation error.", e)
+        except pyodbc.DataError as e:
+            print("Truncated maybe. Error...", topic, e) 
+        except Exception as e:
+            print("Error...", topic, e)
+
+def insert_topics(buffer):
+    # Read data from the file into a list of dictionaries
+    for line in buffer:
+        # Load each line as JSON
+        topic_data = json.loads(line)
+
+        # Create Topic object
+        topic = Topic(
+            TopicID = topic_data["topicid"],
+            Name = topic_data["name"],
+            Description = topic_data["description"]
+            )
+
+        # Insert topic data
+        insert_topic(topic)
 
 if __name__ == '__main__':
     # # Authors + Institutions
