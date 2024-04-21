@@ -16,6 +16,12 @@ def getNextInstitutionID():
         result = cursor.fetchone()
         return int(result[0]) + 1 if result[0] else 1
 
+def getNextTopicID():
+    with create_connection() as conn:
+        cursor = conn.cursor()
+        cursor.execute("SELECT MAX(TopicID) FROM Topic")
+        result = cursor.fetchone()
+        return int(result[0]) + 1 if result[0] else 1
 
 def insert_author(author: Author):
     with create_connection() as conn:
@@ -89,6 +95,30 @@ def insert_authors_and_institutions(buffer):
         # Insert author data
         insert_author(author)
 
+def insert_article(article: Article):
+    with create_connection() as conn:
+        cursor = conn.cursor()
+        try:
+            cursor.execute(
+                "INSERT INTO Article VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+                article.ArticleID,
+                article.Title,
+                article.Abstract,
+                article.DOI,
+                article.StartPage,
+                article.EndPage,
+                article.JournalID,
+                article.Volume)
+            cursor.commit()
+        except pyodbc.IntegrityError as e:
+            print("Article integrity error.", e)
+        except pyodbc.ProgrammingError as e:
+            print("Article creation error.", e)
+        except pyodbc.DataError as e:
+            print("Truncated maybe. Error...", article, e) 
+        except Exception as e:
+            print("Error...", article, e)
+
 def insert_topic(topic: Topic):
     with create_connection() as conn:
         cursor = conn.cursor()
@@ -108,6 +138,61 @@ def insert_topic(topic: Topic):
         except Exception as e:
             print("Error...", topic, e)
 
+def insert_articles_and_topics(buffer):
+    # Read data from the file into a list of dictionaries
+    for line in buffer:
+        # Correct the source data errors
+        cleaned_line = line.replace('\n', '').replace('\\n', '').strip()
+
+        # Load each line as JSON
+        article_data = json.loads(cleaned_line)
+    
+        for item in article_data["s2fieldsofstudy"]:
+            topic_name = item["category"]    
+            # Create Topic object
+            topic = Topic(
+                TopicID = getNextTopicID(),
+                Name = topic_name,
+                Description = None
+            )
+
+            # Insert topic data
+            insert_topic(topic)
+
+        journal_info = article_data["journal"]
+        startPage = endPage = 0
+        pages = journal_info["pages"]
+        volume = journal_info["volume"]
+        journalName = journal_info["name"]
+        
+        # Check if the data format is correct
+        if pages and isinstance(pages, str) and '-' in pages:
+            # Clean up whitespace and line breaks
+            pages = pages.strip()
+            
+            # Check if the format is 'Number1-Number2' after cleaning
+            if pages.count('-') == 1 and all(part.isdigit() for part in pages.split('-')):
+                startPage, endPage = map(int, pages.split('-'))
+    
+        if volume and isinstance(volume, str) and volume.isdigit():
+            volume = int(volume)
+        else:
+            volume = 0
+        
+        # Create Article object
+        article = Article(
+            ArticleID = article_data["corpusid"],
+            Title = article_data["title"],
+            Abstract = ??,
+            DOI = article_data["DOI"],
+            StartPage = startPage,
+            EndPage = endPage,
+            JournalID = ??,
+            Volume = volume
+            )
+
+        # Insert article data
+        insert_article(article)
 
 
 if __name__ == '__main__':
