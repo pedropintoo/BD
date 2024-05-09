@@ -1,9 +1,20 @@
 1) Limpar DB -> Fre...
 2) Start Sql Server Profiler
-3) Selecionar Query Planner
-4) Stop Sql Server Profiler/Qr Planner
+3) Selecionar Query Planner (Acho que são os dois butões em cima no SSMS:InteliSSensEnabled e IncludedActualExtension e ResultsToGrid) e Executar a Query
+4) Stop Sql Server Profiler/Qr Planner (isto é no fim)
 
+Como preencher a tabela?
 
-Rows; Cost -> QrPlanner
-Page reads -> Reads SqlProfiler
-time (ms) -> Duration SqlProfiler 
+As primeiras duas colunas:
+    - Rows; Cost -> QrPlanner
+    - Depois de executar a Query clicar em "Execution Plan" e meter o rato em cima do último estado.
+    - Rows: Actual Number of Rows for All Executions
+    - Cost: Estimated Operator Cost~
+
+As duas colunas seguintes:
+    - Page reads -> Coluna Reads do SqlProfiler 
+    - time (ms) -> Coluna Duration do SqlProfiler
+
+As duas colunas seguintes:
+    - Index Used: por exemplo, WorkOrderID (PK), dado no enunciado
+    - Index Op: Depois de executar a Query clicar em "Execution Plan" e meter o rato em cima do último estado. Título de cima.
