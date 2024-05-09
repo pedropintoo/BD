@@ -23,31 +23,41 @@ Complete the following table.
 ### a)
 
 ```
-... Write here your answer ...
+CREATE TABLE mytemp (
+    rid BIGINT /*IDENTITY (1, 1)*/ NOT NULL,
+    at1 INT NULL,
+    at2 INT NULL,
+    at3 INT NULL,
+    lixo varchar(100) NULL,
+    PRIMARY KEY (rid) -- por defeito cria uma unique clustered index
+);
 ```
 
 ### b)
 
 ```
-... Write here your answer ...
+Fragmentacao dos índices: 98.97%
+Ocupação das páginas: 68.33%
 ```
 
 ### c)
 
 ```
-... Write here your answer ...
+65- tempo manteve mas os Reads aumentaram 42s
+80- tempo aumentou 46s
+90- tempo manteve (optimo!) 42s
 ```
 
 ### d)
 
 ```
-... Write here your answer ...
+O Tempo melhorou agora a escrita é sequencial. Embora ainda tenhamos de rebalanciar. 
 ```
 
 ### e)
 
 ```
-... Write here your answer ...
+Tempo piorou significativamente. Quantos mais indices mais copias temos de ter ou seja mais tempo de inserção.
 ```
 
 ## ​8.3.

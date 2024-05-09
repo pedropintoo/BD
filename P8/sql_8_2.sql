@@ -8,5 +8,7 @@ CREATE TABLE mytemp (
     at2 INT NULL,
     at3 INT NULL,
     lixo varchar(100) NULL,
-    PRIMARY KEY (rid)
+    PRIMARY KEY (rid) -- por defeito cria uma unique clustered index
 );
+
+ALTER INDEX ALL ON mytemp REBUILD WITH (FILLFACTOR = 65);
