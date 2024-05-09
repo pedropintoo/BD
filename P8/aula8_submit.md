@@ -63,11 +63,11 @@ Tempo piorou significativamente. Quantos mais indices mais copias temos de ter o
 ## ​8.3.
 
 ```
-1. 
+1. (Por defeito, a criação de uma chave primária cria automaticamente um unique clustered index)
 2. CREATE INDEX ixEmployeeFLname ON EMPLOYEE (Fname, Lname);
 3. CREATE INDEX ixEmployeeDno ON EMPLOYEE (Dno);
 4. CREATE INDEX ixWorksOnPno on WORKS_ON (Pno);
-5.
+5. (Por defeito, a criação de uma chave primária cria automaticamente um unique clustered index)
 6. CREATE INDEX ixProjectDnum ON PROJECT (Dnum);
 
 ```
