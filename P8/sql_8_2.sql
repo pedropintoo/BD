@@ -11,4 +11,10 @@ CREATE TABLE mytemp (
     PRIMARY KEY (rid) -- por defeito cria uma unique clustered index
 );
 
-ALTER INDEX ALL ON mytemp REBUILD WITH (FILLFACTOR = 65);
+ALTER INDEX ALL ON mytemp REBUILD WITH (FILLFACTOR = 90);
+
+-- ex e) criar índices
+CREATE INDEX idxAt1 ON mytemp(at1);
+CREATE INDEX idxAt2 ON mytemp(at2);
+CREATE INDEX idxAt3 ON mytemp(at3);
+CREATE INDEX idxLixo ON mytemp(lixo);
