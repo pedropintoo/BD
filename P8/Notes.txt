@@ -1,0 +1,9 @@
+1) Limpar DB -> Fre...
+2) Start Sql Server Profiler
+3) Selecionar Query Planner
+4) Stop Sql Server Profiler/Qr Planner
+
+
+Rows; Cost -> QrPlanner
+Page reads -> Reads SqlProfiler
+time (ms) -> Duration SqlProfiler 
