@@ -24,6 +24,7 @@ If you use poetry shell, then run `python app.py` to execute the app.
 
 ## Running
 
+
 If not on a virtual environemnt open one with: `poetry shell`
 
 To run the application, use the following command: `flask run --debug`
