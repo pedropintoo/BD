@@ -19,12 +19,13 @@ def conn_string() -> str:
     username = config["database"]["username"]
     password = config["database"]["password"]
 
-    return f"DRIVER={{SQL Server}};SERVER={server};DATABASE={db_name};UID={username};PWD={password};"
+    return f"DRIVER={{SQL Server}};SERVER={server};DATABASE={db_name};UID={username};PWD={password};charset='utf8'"
 
 
 def create_connection():
     my_conn_string = conn_string()
     return pyodbc.connect(my_conn_string)
 
-# if __name__ == "__main__":
-#     print(conn_string())
+if __name__ == "__main__":
+    print(conn_string())
+    print(create_connection())
