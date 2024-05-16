@@ -12,13 +12,69 @@
 ### *b)* 
 
 ```
-... Write here your answer ...
+CREATE PROCEDURE GetManagersAndOldestManager
+AS
+BEGIN
+    -- Record-set with the department managers and their years as managers
+    SELECT 
+        e.Fname, 
+        e.Minit, 
+        e.Lname, 
+        e.Ssn, 
+        e.Sex, 
+        e.Salary, 
+        e.Dno,
+        DATEDIFF(YEAR, d.Mgr_start_date, GETDATE()) AS YearsAsManager
+    FROM 
+        employee e
+    INNER JOIN 
+        department d ON e.Ssn = d.Mgr_ssn;
+
+    -- Record-set with the longest-serving employee as manager
+    SELECT TOP 1 
+        e.Fname, 
+        e.Minit, 
+        e.Lname, 
+        e.Ssn,
+		e.Sex, 
+        e.Salary, 
+        e.Dno,
+        DATEDIFF(YEAR, d.Mgr_start_date, GETDATE()) AS YearsAsManager
+    FROM 
+        employee e
+    INNER JOIN 
+        department d ON e.Ssn = d.Mgr_ssn
+    ORDER BY 
+        d.Mgr_start_date ASC;
+END;
+GO
+
+
+EXEC GetManagersAndOldestManager;
 ```
 
 ### *c)* 
 
 ```
-... Write here your answer ...
+CREATE TRIGGER trg_CheckManagerAfterInsertUpdate
+ON department
+AFTER INSERT, UPDATE
+AS
+BEGIN
+    -- Check if any employee is a manager of more than one department
+    IF EXISTS (
+        SELECT 1
+        FROM inserted i
+        JOIN department d ON i.Mgr_ssn = d.Mgr_ssn
+        GROUP BY i.Mgr_ssn
+        HAVING COUNT(d.Dnumber) > 1
+    )
+    BEGIN
+        RAISERROR (''An employee cannot be the manager of more than one department.', 16, 1);
+        ROLLBACK TRANSACTION;
+    END
+END;
+GO
 ```
 
 ### *d)* 
